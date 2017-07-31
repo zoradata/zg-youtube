@@ -1,0 +1,20 @@
+{
+   "name": "zoradata/zggraph",
+   "description": "Simple wrapper for Google Graphs",
+   "keywords": ["PHP","Google","Graph"],   
+   "type": "library",   
+   "license": ["GPL-3.0"],   
+   "authors": [
+      {
+         "name": "Jaroslav Šourek",
+         "email": "jaroslav.sourek@zoradata.cz"
+      }
+   ],
+   "require": {
+      "php": "^5.6.0 || ^7.0"
+   },
+   "autoload": {
+     "classmap": ["Class/"]
+   },
+   "minimum-stability": "dev"
+}
