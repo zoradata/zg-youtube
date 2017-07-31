@@ -1,7 +1,7 @@
 {
-   "name": "zoradata/zggraph",
-   "description": "Simple wrapper for Google Graphs",
-   "keywords": ["PHP","Google","Graph"],   
+   "name": "zoradata/zgyoutube",
+   "description": "Simple wrapper for YouTube",
+   "keywords": ["PHP","Google","YouTube"],   
    "type": "library",   
    "license": ["GPL-3.0"],   
    "authors": [
