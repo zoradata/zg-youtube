@@ -11,8 +11,12 @@ include_once '../Class/ZgYoutubePlay.php';
       <?php
          $youtube = new \Zoradata\ZgYoutubePlay();
 
+         $events = array ('onReady' => 'onPlayerReady',
+                          'onStateChange' => 'onPlayerStateChange');
          // echo $youtube->loader();
-         echo $youtube->player('M7lc1UVf-VE');
+         $height = 360;
+         $width = 640;
+         echo $youtube->player('M7lc1UVf-VE', $height, $width, array('controls' => 0), $events);
          
       ?>
    </body>

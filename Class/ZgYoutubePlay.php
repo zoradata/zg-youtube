@@ -63,12 +63,14 @@ class ZgYoutubePlay
     * @param string $video Video ID
     * @param int $height IFrame height
     * @param int $width IFrame width
-    * @param array $param Player parameters
+    * @param array $params Player parameters
+    * @param array $events Player events
     * @return string Javascript to create Player
+    * 
     */
-   public function player($video, $height = 360, $width = 640, $param = array())
+   public function player($video, $height = 360, $width = 640, $params = array(), $events = array())
    {
-      return "<script>
+      $output = "<script>
                  var tag = document.createElement('script');
                  tag.src = '" . $this->url . "';
       
@@ -82,20 +84,29 @@ class ZgYoutubePlay
                                                    height: '" . $height . "',
                                                    width: '" . $width . "',
                  events: {
-                         'onReady': onPlayerReady,
-                         'onStateChange': onPlayerStateChange
-                         }
-                                                  });
-                }
+                      /*   'onReady': onPlayerReady,
+                         'onStateChange': onPlayerStateChange*/
+                         }";
+      if (!empty($params))
+      {
+         $output .= ",playerVars: " . json_encode($params, JSON_UNESCAPED_UNICODE);
+      }
+      $output .= "});";
+   
+      if (!empty($events))
+      {
+         foreach ($events as $event => $function)
+         {
+            $output .= "player.addEventListener('" . $event . "'," . $function . "); ";
+         }
+      }
+      
+      $output .= "}";
 
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
+      $output .= "function onPlayerReady(event) {
         event.target.playVideo();
       }
 
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
@@ -107,7 +118,10 @@ class ZgYoutubePlay
         player.stopVideo();
       }
     </script>";
+      
+      return $output;
 
+/*      
       $output = '<script type="text/javascript"';
       $output .= "   var tag = document.createElement('script');";
       $output .= "   tag.src = '" . $this->url . "';";
@@ -146,8 +160,21 @@ class ZgYoutubePlay
       $output .= '</script>';
       
       //return $output;
+ * */
    }
-    
-    
+
+   
+   /**
+    * Javascript for create player
+    * @param string $video Video ID
+    * @param int $height IFrame height
+    * @param int $width IFrame width
+    * @param array $params Player parameters
+    * @return string Javascript to create Player
+    * 
+    */
+   public function addEvent($video, $height = 360, $width = 640, $params = array())
+   {
+   }
 
 }
